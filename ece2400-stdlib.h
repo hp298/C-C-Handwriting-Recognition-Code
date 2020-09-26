@@ -32,6 +32,21 @@ void* ece2400_malloc( size_t mem_size );
 void ece2400_free( void* ptr );
 
 //------------------------------------------------------------------------
+// ece2400_print_array
+//------------------------------------------------------------------------
+// Prints the contents in an integer array.
+
+void ece2400_print_array( int* a, size_t size );
+
+//------------------------------------------------------------------------
+// ece2400_sort
+//------------------------------------------------------------------------
+// A reference sorting function that sorts an array of integer in
+// ascending order.
+
+void ece2400_sort( int* a, size_t size );
+
+//------------------------------------------------------------------------
 // ece2400_mem_reset
 //------------------------------------------------------------------------
 // Resets the memory counter to 0.
@@ -47,6 +62,13 @@ void ece2400_mem_reset();
 size_t ece2400_mem_get_usage();
 
 //------------------------------------------------------------------------
+// ece2400_mem_get_peak
+//------------------------------------------------------------------------
+// Return the peak heap usage.
+
+size_t ece2400_mem_get_peak();
+
+//------------------------------------------------------------------------
 // ece2400_timer_reset
 //------------------------------------------------------------------------
 // Resets the timer.
@@ -60,4 +82,4 @@ void ece2400_timer_reset();
 
 double ece2400_timer_get_elapsed();
 
-#endif // ECE2400_STDLIB
+#endif  // ECE2400_STDLIB

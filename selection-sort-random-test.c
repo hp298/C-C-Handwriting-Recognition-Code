@@ -1,48 +1,44 @@
 //========================================================================
-// vector-random-test.c
+//selection-sort-random-tests.c
 //========================================================================
-// This file contains contains random tests for vector-related functions.
+// This file contains the random test casess for the selection sort
+// function.
 
 #include <stdio.h>
+#include <stdlib.h>
+#include "ece2400-stdlib.h"
 #include "utst.h"
-#include "vector.h"
+#include "selection-sort.h"
 
 //------------------------------------------------------------------------
 // test_case_1_simple
 //------------------------------------------------------------------------
-// Students: This test case does nothing. You need to replace this test
-// case with your own random test case.
+// test a random array of 100 integers and tries to sort
 
 void test_case_1_simple()
 {
-   printf( "\n%s\n", __func__ );
-  srand( 0xDeadFa11 );
+  printf( "\n%s\n", __func__ );
+  srand( 0x8BadBeef );
   
-  vector_int_t vec;
-  vector_int_construct( &vec );
-
-  // array to keep track
   int a[100];
-
-  // Push back some random elements
-  for ( int i = 0; i < 100; i++ ) {
-    int x = rand();
-    a[i] = x;
-    vector_int_push_back( &vec, x );
-  }
-
-  // Try finding them
-  for ( int i = 0; i < 100; i++ ) {
-    UTST_ASSERT_INT_EQ( vector_int_at  ( &vec, i ), a[i]);
-    UTST_ASSERT_TRUE( vector_int_find( &vec, a[i] ) );
-  }
-
-  // Check size
-  UTST_ASSERT_INT_EQ( vector_int_size( &vec ), 100 );
-
-  vector_int_destruct( &vec );
-}
+  int b[100];
   
+  // random number
+  for ( int i = 0; i < 100; i++ ) {
+    int randy = rand() % 1000 + 1;
+    a[i] = randy;
+    b[i] = randy;
+  }
+  // sort the random array
+  selection_sort( a, 100);
+  ece2400_sort( b, 100);
+
+  // check every index
+  for ( int i = 0; i < 100; i++ ) {
+    UTST_ASSERT_INT_EQ( a[i] , b[i] );
+  }
+}
+
 //------------------------------------------------------------------------
 // main
 //------------------------------------------------------------------------

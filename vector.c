@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include "vector.h"
 #include "ece2400-stdlib.h"
+#include "quick-sort.h"
 
 //------------------------------------------------------------------------
 // vector_int_construct
@@ -50,55 +51,11 @@ size_t vector_int_size( vector_int_t* this )
 }
 
 //------------------------------------------------------------------------
-// vector_int_push_back_v1
+// vector_int_push_back
 //------------------------------------------------------------------------
-// Push a new value into the vector_int_t, allocate just enough memory if
-// the internal array is full.
+// Push a new value into the vector_int_t.
 
-void vector_int_push_back_v1( vector_int_t* this, int value )
-{
-  int n = this->size;
-  // space in vector
-  if ( this->size < this->maxsize ) {
-    this->array[n] = value;
-    this->size += 1;
-  }
-  // empty
-  else if ( n == 0 ) {
-    this->size = 1;
-    this->maxsize = 1;
-    this->array[0] = value;
-  }
-  // no space, not empty
-  else {
-    // keep old vector, make new, increase maxsize(by 1) & size
-    int* a = this->array;  
-    this->size += 1;
-    this->maxsize += 1;
-    int max = this->maxsize;
-    this->array = ece2400_malloc( max * sizeof(int) );
-    
-    // copy old vector to new
-    for ( int i = 0; i < ( max - 1 ); i++ ) {
-      this->array[i] = a[i];
-    }
-    
-    // free old vector
-    ece2400_free( a );
-    
-    // add new value
-    this->array[max - 1] = value;
-    
-  }
-}
-
-//------------------------------------------------------------------------
-// vector_int_push_back_v2
-//------------------------------------------------------------------------
-// Push a new value into the vector_int_t, doubles the size of the
-// internal array if vector is full.
-
-void vector_int_push_back_v2( vector_int_t* this, int value )
+void vector_int_push_back( vector_int_t* this, int value )
 {
     int n = this->size;
   // space in vector
@@ -135,6 +92,7 @@ void vector_int_push_back_v2( vector_int_t* this, int value )
     
   }
 }
+
 
 //------------------------------------------------------------------------
 // vector_int_at
@@ -177,7 +135,19 @@ int vector_int_find( vector_int_t* this, int value )
     }
   }
   return 0;
+}
 
+//------------------------------------------------------------------------
+// vector_int_sort
+//------------------------------------------------------------------------
+// Sorts the internal data stored in the vector.
+
+void vector_int_sort( vector_int_t* this )
+{
+  int* a = this->array;
+  size_t size = this->size;
+  
+  quick_sort( a, size );
 }
 
 //------------------------------------------------------------------------
@@ -192,5 +162,4 @@ void vector_int_print( vector_int_t* this )
     int v = this->array[i];
     printf("%i, ", v);
   }
-  
 }

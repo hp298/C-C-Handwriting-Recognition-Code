@@ -1,11 +1,14 @@
 //========================================================================
-// vector-random-test.c
+//quick-sort-random-tests.c
 //========================================================================
-// This file contains contains random tests for vector-related functions.
+// This file contains the random test casess for the quick sort
+// function.
 
 #include <stdio.h>
+#include <stdlib.h>
+#include "ece2400-stdlib.h"
 #include "utst.h"
-#include "vector.h"
+#include "quick-sort.h"
 
 //------------------------------------------------------------------------
 // test_case_1_simple
@@ -15,34 +18,28 @@
 
 void test_case_1_simple()
 {
-   printf( "\n%s\n", __func__ );
-  srand( 0xDeadFa11 );
+  printf( "\n%s\n", __func__ );
+  srand( 0x8BadBeef );
   
-  vector_int_t vec;
-  vector_int_construct( &vec );
-
-  // array to keep track
   int a[100];
-
-  // Push back some random elements
-  for ( int i = 0; i < 100; i++ ) {
-    int x = rand();
-    a[i] = x;
-    vector_int_push_back( &vec, x );
-  }
-
-  // Try finding them
-  for ( int i = 0; i < 100; i++ ) {
-    UTST_ASSERT_INT_EQ( vector_int_at  ( &vec, i ), a[i]);
-    UTST_ASSERT_TRUE( vector_int_find( &vec, a[i] ) );
-  }
-
-  // Check size
-  UTST_ASSERT_INT_EQ( vector_int_size( &vec ), 100 );
-
-  vector_int_destruct( &vec );
-}
+  int b[100];
   
+  // random number
+  for ( int i = 0; i < 100; i++ ) {
+    int randy = rand() % 1000 + 1;
+    a[i] = randy;
+    b[i] = randy;
+  }
+  // sort the random array
+  quick_sort( a, 100);
+  ece2400_sort( b, 100);
+
+  // check every index
+  for ( int i = 0; i < 100; i++ ) {
+    UTST_ASSERT_INT_EQ( a[i] , b[i] );
+  }
+}
+
 //------------------------------------------------------------------------
 // main
 //------------------------------------------------------------------------
@@ -51,7 +48,12 @@ int main( int argc, char** argv )
 {
   __n = ( argc == 1 ) ? 0 : atoi( argv[1] );
 
-  if ( ( __n == 0 ) || ( __n == 1 ) ) test_case_1_simple();
+  if ( ( __n == 0 ) || ( __n == 1 ) )
+    test_case_1_simple();
+
+  //'''' ASSIGNMENT TASK '''''''''''''''''''''''''''''''''''''''''''''''''
+  // Add some random tests!
+  //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
   return 0;
 }

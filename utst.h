@@ -15,7 +15,7 @@
 #include <assert.h>
 #include <math.h>
 
-#define RED   "\033[31m"
+#define RED "\033[31m"
 #define GREEN "\033[32m"
 #define RESET "\033[0m"
 
@@ -27,15 +27,18 @@ static int __n = 1;
 //------------------------------------------------------------------------
 // Checks to see if the expression is true.
 
-#define UTST_ASSERT_TRUE( expr_ ) \
-  if ( !(expr_) ) { \
-    if ( __n == 0 ) printf( "\n" ); \
-    printf( " - [ " RED "FAILED" RESET " ] Line %d\n", __LINE__ ); \
-    exit( 1 ); \
-  } else if ( __n > 0 ) { \
+#define UTST_ASSERT_TRUE( expr_ )                                    \
+  if ( !( expr_ ) ) {                                                \
+    if ( __n == 0 )                                                  \
+      printf( "\n" );                                                \
+    printf( " - [ " RED "FAILED" RESET " ] Line %d\n", __LINE__ );   \
+    exit( 1 );                                                       \
+  }                                                                  \
+  else if ( __n > 0 ) {                                              \
     printf( " - [ " GREEN "passed" RESET " ] Line %d\n", __LINE__ ); \
-  } else { \
-    printf( GREEN "." RESET ); \
+  }                                                                  \
+  else {                                                             \
+    printf( GREEN "." RESET );                                       \
   }
 
 //------------------------------------------------------------------------
@@ -43,15 +46,18 @@ static int __n = 1;
 //------------------------------------------------------------------------
 // Checks to see if the expression is false.
 
-#define UTST_ASSERT_FALSE( expr_ ) \
-  if ( (expr_) ) { \
-    if ( __n == 0 ) printf( "\n" ); \
-    printf(" - [ " RED "FAILED" RESET " ] Line %d\n", __LINE__); \
-    exit( 1 ); \
-  } else if ( __n > 0 ) { \
-    printf(" - [ " GREEN "passed" RESET " ] Line %d\n", __LINE__); \
-  } else { \
-    printf( GREEN "." RESET ); \
+#define UTST_ASSERT_FALSE( expr_ )                                   \
+  if ( ( expr_ ) ) {                                                 \
+    if ( __n == 0 )                                                  \
+      printf( "\n" );                                                \
+    printf( " - [ " RED "FAILED" RESET " ] Line %d\n", __LINE__ );   \
+    exit( 1 );                                                       \
+  }                                                                  \
+  else if ( __n > 0 ) {                                              \
+    printf( " - [ " GREEN "passed" RESET " ] Line %d\n", __LINE__ ); \
+  }                                                                  \
+  else {                                                             \
+    printf( GREEN "." RESET );                                       \
   }
 
 //------------------------------------------------------------------------
@@ -59,15 +65,18 @@ static int __n = 1;
 //------------------------------------------------------------------------
 // Checks to see if the two expressions are equal using the != operator.
 
-#define UTST_ASSERT_INT_EQ( expr0_, expr1_ ) \
-  if ( (int)(expr0_) != (int)(expr1_) ) { \
-    if ( __n == 0 ) printf( "\n" ); \
-    printf(" - [ " RED "FAILED" RESET " ] Line %d: %d != %d\n", __LINE__, (int)(expr0_), (int)(expr1_)); \
-    exit( 1 ); \
-  } else if ( __n > 0 ) { \
-    printf(" - [ " GREEN "passed" RESET " ] Line %d: %d == %d\n", __LINE__, (int)(expr0_), (int)(expr1_)); \
-  } else { \
-    printf( GREEN "." RESET ); \
+#define UTST_ASSERT_INT_EQ( expr0_, expr1_ )                                                                     \
+  if ( (int)( expr0_ ) != (int)( expr1_ ) ) {                                                                    \
+    if ( __n == 0 )                                                                                              \
+      printf( "\n" );                                                                                            \
+    printf( " - [ " RED "FAILED" RESET " ] Line %d: %d != %d\n", __LINE__, (int)( expr0_ ), (int)( expr1_ ) );   \
+    exit( 1 );                                                                                                   \
+  }                                                                                                              \
+  else if ( __n > 0 ) {                                                                                          \
+    printf( " - [ " GREEN "passed" RESET " ] Line %d: %d == %d\n", __LINE__, (int)( expr0_ ), (int)( expr1_ ) ); \
+  }                                                                                                              \
+  else {                                                                                                         \
+    printf( GREEN "." RESET );                                                                                   \
   }
 
 //------------------------------------------------------------------------
@@ -75,15 +84,18 @@ static int __n = 1;
 //------------------------------------------------------------------------
 // Checks to see if the two expressions are within eps_ of each other.
 
-#define UTST_ASSERT_FLOAT_EQ( expr0_, expr1_, eps_ ) \
-  if ( fabs( (expr0_) - (expr1_) ) > (double) (eps_) ) { \
-    if ( __n == 0 ) printf( "\n" ); \
-    printf(" - [ " RED "FAILED" RESET " ] Line %d:  %f != %f\n", __LINE__, (double)(expr0_), (double)(expr1_)); \
-    exit( 1 ); \
-  } else if ( __n > 0 ) { \
-    printf(" - [ " GREEN "passed" RESET " ] Line %d:  %f == %f\n", __LINE__, (double)(expr0_), (double)(expr1_)); \
-  } else { \
-    printf( GREEN "." RESET ); \
+#define UTST_ASSERT_FLOAT_EQ( expr0_, expr1_, eps_ )                                                                    \
+  if ( fabs( ( expr0_ ) - ( expr1_ ) ) > (double)( eps_ ) ) {                                                           \
+    if ( __n == 0 )                                                                                                     \
+      printf( "\n" );                                                                                                   \
+    printf( " - [ " RED "FAILED" RESET " ] Line %d:  %f != %f\n", __LINE__, (double)( expr0_ ), (double)( expr1_ ) );   \
+    exit( 1 );                                                                                                          \
+  }                                                                                                                     \
+  else if ( __n > 0 ) {                                                                                                 \
+    printf( " - [ " GREEN "passed" RESET " ] Line %d:  %f == %f\n", __LINE__, (double)( expr0_ ), (double)( expr1_ ) ); \
+  }                                                                                                                     \
+  else {                                                                                                                \
+    printf( GREEN "." RESET );                                                                                          \
   }
 
 #endif
